@@ -25,12 +25,12 @@ public class CountThreadsMain {
         thread1.start();
         thread2.start();
         thread3.start();
-
+/**
         System.out.println("Run threads");
         countThread1.run();
         countThread2.run();
         countThread3.run();
-
+*/
 
 
 
