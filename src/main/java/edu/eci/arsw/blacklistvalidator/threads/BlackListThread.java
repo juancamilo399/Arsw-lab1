@@ -35,12 +35,6 @@ public class BlackListThread extends Thread {
                 ocurrencesCount.getAndIncrement();
             }
         }
-
-        if (ocurrencesCount.get() >= BLACK_LIST_ALARM_COUNT) {
-            skds.reportAsNotTrustworthy(ipAddress);
-        } else {
-            skds.reportAsTrustworthy(ipAddress);
-        }
     }
 
 }

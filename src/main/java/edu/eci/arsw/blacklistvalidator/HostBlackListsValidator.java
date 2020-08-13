@@ -68,6 +68,12 @@ public class HostBlackListsValidator {
             }
         }
 
+        if (ocurrencesCount.get() >= BLACK_LIST_ALARM_COUNT) {
+            skds.reportAsNotTrustworthy(ipaddress);
+        } else {
+            skds.reportAsTrustworthy(ipaddress);
+        }
+
         LOG.log(Level.INFO, "Checked Black Lists:{0} of {1}", new Object[]{checkedListsCount.get(), skds.getRegisteredServersCount()});
         return blackListOcurrences;
 
