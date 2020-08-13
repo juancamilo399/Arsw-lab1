@@ -17,6 +17,14 @@ In agreement with the lectures, complete the classes CountThread, so that they d
 Complete the main method of the CountMainThreads class so that: 
 
 1. Create 3 threads of type CountThread, assigning the first interval [0..99], the second [99..199], and the third [200..299]. 
+   
+   Metodo countThread
+   
+   ![](img/countThread.png)
+   
+   Metodo main
+   
+   ![](img/countThreadMain.png)
 
 2. Start the three threads with start(). Run and check the output on the screen. 
 
