@@ -1,8 +1,7 @@
 package edu.eci.arsw.blacklistvalidator.threads;
 
 import edu.eci.arsw.spamkeywordsdatasource.HostBlacklistsDataSourceFacade;
-
-import java.util.LinkedList;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class BlackListThread extends Thread {
@@ -13,9 +12,9 @@ public class BlackListThread extends Thread {
     private AtomicInteger ocurrencesCount;
     private AtomicInteger checkedListsCount;
     private HostBlacklistsDataSourceFacade skds;
-    private LinkedList<Integer>blackListOcurrence;
+    private CopyOnWriteArrayList<Integer> blackListOcurrence;
 
-    public BlackListThread(int start, int final_server, String ipAddress, AtomicInteger ocurrencesCount, LinkedList<Integer> blackListOcurrence, HostBlacklistsDataSourceFacade skds, AtomicInteger checkedListsCount) {
+    public BlackListThread(int start, int final_server, String ipAddress, AtomicInteger ocurrencesCount, CopyOnWriteArrayList<Integer> blackListOcurrence, HostBlacklistsDataSourceFacade skds, AtomicInteger checkedListsCount) {
         this.start = start;
         this.final_server = final_server;
         this.ipAddress = ipAddress;

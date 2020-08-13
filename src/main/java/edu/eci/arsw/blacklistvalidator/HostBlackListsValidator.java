@@ -9,6 +9,7 @@ import edu.eci.arsw.blacklistvalidator.threads.BlackListThread;
 import edu.eci.arsw.spamkeywordsdatasource.HostBlacklistsDataSourceFacade;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,8 +33,8 @@ public class HostBlackListsValidator {
      * @return  Blacklists numbers where the given host's IP address was found.
      */
     public List<Integer> checkHost(String ipaddress,int numberThreads){
-        
-        LinkedList<Integer> blackListOcurrences=new LinkedList<>();
+
+        CopyOnWriteArrayList<Integer> blackListOcurrences = new CopyOnWriteArrayList();
         
         AtomicInteger ocurrencesCount=new AtomicInteger(0);
         
@@ -52,12 +53,9 @@ public class HostBlackListsValidator {
             else {
                 threads[i]=new BlackListThread(start , start+amount, ipaddress, ocurrencesCount, blackListOcurrences, skds, checkedListsCount);
             }
+            threads[i].start();
             start+=amount;
 
-        }
-
-        for (int i = 0; i < numberThreads; i++) {
-            threads[i].start();
         }
 
         for(int i=0;i<numberThreads;i++){
