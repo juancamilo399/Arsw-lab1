@@ -7,21 +7,21 @@ Complete the main method of the CountMainThreads class so that:
    
    Metodo countThread
    
-   ![](resources/img/countThread.png)
+   ![](img/countThread.png)
    
    Metodo main
    
-   ![](resources/img/countThreadMain.png)
+   ![](img/countThreadMain.png)
 
 2. Start the three threads with start(). Run and check the output on the screen. 
 
    Usando el metodo start()
   
-   ![](resources/img/start.png)
+   ![](img/start.png)
    
    Usando el metodo run()
    
-   ![](resources/img/run.png)
+   ![](img/run.png)
 
 3. Change the beginning with start() to run(). How does the output change? Why?\
 
