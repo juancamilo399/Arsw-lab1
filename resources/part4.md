@@ -16,23 +16,27 @@ When starting the program run the monitor jVisualVM, and as you run the tests, r
 
 2. As many threads as processing cores. 8 Threads
 
+**El consumo de memoria es tan bajo que no es detectado
+
 ![](img/thread2.png)
-El consumo de memoria es tan bajo que no es detectado
 
 3. As many threads as twice the number of processing cores. 16 Threads
 
+**El consumo de memoria es tan bajo que no es detectado
+
 ![](img/thread3.png)
-El consumo de memoria es tan bajo que no es detectado
 
 4. 50 threads 
 
+**El consumo de memoria es tan bajo que no es detectado
+
 ![](img/thread4.png)
-El consumo de memoria es tan bajo que no es detectado
 
 5. 100 threads
 
+**El consumo de memoria es tan bajo que no es detectado
+
 ![](img/thread5.png)
-El consumo de memoria es tan bajo que no es detectado
 
 With the above, and with the given execution times, make a graph of solution time vs. Number of threads. Analyze and hypothesize with your partner for the following questions (you can take into account what was reported by jVisualVM):
 
