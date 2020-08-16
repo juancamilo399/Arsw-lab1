@@ -13,7 +13,6 @@ When starting the program run the monitor jVisualVM, and as you run the tests, r
 ![](img/thread1.png)
 ![](img/cpu1.PNG)
 
-
 2. As many threads as processing cores. 8 Threads
 
 El consumo de memoria es tan bajo que no es detectado
