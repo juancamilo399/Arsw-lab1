@@ -12,5 +12,6 @@
 - Para ejecutar las pruebas: mvn test
 
 Ver [parte uno](resources/part1.md)
+Ver [parte dos](resources/part2.md)
 
 
