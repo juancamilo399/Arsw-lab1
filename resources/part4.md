@@ -32,6 +32,8 @@ When starting the program run the monitor jVisualVM, and as you run the tests, r
 
 With the above, and with the given execution times, make a graph of solution time vs. Number of threads. Analyze and hypothesize with your partner for the following questions (you can take into account what was reported by jVisualVM):
 
+![](img/grafica.PNG)
+
 1. According to Amdahls law, where S(n) is the theoretical improvement of performance, P the parallel fraction of the algorithm, and n the number of threads, the greater n, the better this improvement should be. Why is the best performance not achieved with the 500 threads? How is this performance compared when using 200 ?.
 
 Como sabemos, la ley de Amdahl define la ganancia del rendimiento que puede lograrse al introducir una mejora en nuestro procesador. Sin embargo, la segunda variante de esta ley nos menciona que el incremento del rendimiento será menor si se introduce una mejora sobre un sistema previamente mejorado.  En el caso de BlackListSearch esa mejora estará reflejada por el numero de Threads usados durante su ejecución.
