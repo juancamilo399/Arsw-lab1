@@ -13,6 +13,6 @@
 
 Ver [parte uno](resources/part1.md)
 
-Ver [parte dos](resources/part2.md)
+Ver [parte cuatro](resources/part4.md)
 
 
