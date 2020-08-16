@@ -16,25 +16,25 @@ When starting the program run the monitor jVisualVM, and as you run the tests, r
 
 2. As many threads as processing cores. 8 Threads
 
-**El consumo de memoria es tan bajo que no es detectado
+El consumo de memoria es tan bajo que no es detectado
 
 ![](img/thread2.png)
 
 3. As many threads as twice the number of processing cores. 16 Threads
 
-**El consumo de memoria es tan bajo que no es detectado
+El consumo de memoria es tan bajo que no es detectado
 
 ![](img/thread3.png)
 
 4. 50 threads 
 
-**El consumo de memoria es tan bajo que no es detectado
+El consumo de memoria es tan bajo que no es detectado
 
 ![](img/thread4.png)
 
 5. 100 threads
 
-**El consumo de memoria es tan bajo que no es detectado
+El consumo de memoria es tan bajo que no es detectado
 
 ![](img/thread5.png)
 
