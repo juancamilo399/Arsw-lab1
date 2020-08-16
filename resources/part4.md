@@ -11,7 +11,7 @@ When starting the program run the monitor jVisualVM, and as you run the tests, r
 1. A single thread. 
 
 ![](img/thread1.png)
-![](img/cpu1.png)
+![](img/cpu1.PNG)
 
 
 2. As many threads as processing cores. 8 Threads
