@@ -5,9 +5,8 @@
  */
 package edu.eci.arsw.blacklistvalidator;
 
-import edu.eci.arsw.blacklistvalidator.threads.BlackListThread;
 import edu.eci.arsw.spamkeywordsdatasource.HostBlacklistsDataSourceFacade;
-import java.util.LinkedList;
+
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;

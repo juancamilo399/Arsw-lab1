@@ -1,9 +1,11 @@
 package edu.eci.arsw.primefinder;
 
+import edu.eci.arsw.primefinder.Control;
+
 public class Main {
 
     public static void main(String[] args) {
-        Control control = Control.newControl();
+        edu.eci.arsw.primefinder.Control control = Control.newControl();
         control.start();
 
     }

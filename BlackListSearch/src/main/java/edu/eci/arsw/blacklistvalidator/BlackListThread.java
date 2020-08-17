@@ -1,4 +1,4 @@
-package edu.eci.arsw.blacklistvalidator.threads;
+package edu.eci.arsw.blacklistvalidator;
 
 import edu.eci.arsw.spamkeywordsdatasource.HostBlacklistsDataSourceFacade;
 import java.util.concurrent.CopyOnWriteArrayList;
