@@ -27,6 +27,11 @@ Complete the main method of the CountMainThreads class so that:
 
    Usando start los hilos se ejecutan en un un orden diferente al especificado en el codigo, mientras que usando run los hilos se inician de acuerdo a la forma especificada en  el codigo. Esto sucede porque al usar el metodo start() se asigna un nuevo hilo y este llama al método run(), esto quiere decir que usando el metodo start() su método run se   ejecuta en hilos separados (simultaneamente), mientras que al llamar el método run() directamente no se crean multiples subprocesos por lo que la ejecución se refleja de forma
    simultanea.
+   
+# Part III - Discussion
+The strategy of parallelism previously implemented is inefficient in certain cases, since the search is still carried out even when the N threads (as a whole) have already found the minimum number of occurrences required to report to the server as malicious. How could the implementation be modified to minimize the number of queries in these cases? What new element would this bring to the problem?.
+
+La estrategia implementada anteriormente es ineficiente en ciertos casos porque pueden ocurrir busquedas cuando ya se han encontrado el número de ocurrencias necesarias para considerar un servidor malicioso, por lo tanto es necesario crear una variable compartida entre los distintos hilos cuya función sea llevar la cuenta de las distintas ocurrencias, pero esto trae un problema consigo ya que se crearia una condición de carrera, por lo que esta variable se volveria atómica, protegiendo de esta menera su integridad. 
 
 # Part IV - Performance Evaluation 
 From the above, implement the following sequence of experiments to perform the validation of dispersed IP addresses (for example 202.24.34.55), taking the execution times of them (be sure to do them on the same machine):
