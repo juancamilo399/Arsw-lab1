@@ -1,3 +1,16 @@
-3. Unnecessary use of active waits : 
+1. Posibles condiciones de carrera:
+Problema: El caso de que 2 serpientes accedan al mismo objeto (cell) simultaneamente al chocar con dicho objeto al mismo tiempo.
+Solución: Se sincrinizó el acceso a dichos objetos utilizando el mismo objeto como bloqueo.
+
+2. Uso inapropiado de colecciones:
+Problema: Cuando una serpiente al estarse moviendo muy rapido crece y posteriormente cambie de dirección o vuelva a comer.
+Solución: Utilizar una colección thread safe que se comporte como una linked list.
+
+
+3. Unnecessary use of active waits: 
 Problema : Se utiliza un while true para verificar si todas las serpientes están muertas. Esto es innecesario y consume capacidad del procesador de la máquina.
-Solución : Se utiliza un entero atómico en la clase Snake enviado como parámetro desde SnakeApp para llevar la contabilización del número de serpientes muertas. Este entero aumentará en 1 cada vez que haya una serpiente muerta. También, se crea una nueva clase que va a ser la encargada de imprimir los estados del Thread en pantalla una vez hayan muerto las serpientes. La instancia de esta clase será enviada como parámetro a la clase Snake desde la clase SnakeApp conteniendo la lista de Threads. Finalmente, en el método run() de la clase Snake , cuando el entero atómico sea igual al número de serpientes , le indicará a la nueva clase imprimir el estado de los Threads.
+Solución : Se utiliza un entero atómico en la clase Snake enviado como parámetro desde SnakeApp para llevar la contabilización del número de serpientes muertas.
+Este entero aumentará en 1 cada vez que haya una serpiente muerta. También, se crea una nueva clase que va a ser la encargada de imprimir los estados del Thread
+en pantalla una vez hayan muerto las serpientes. La instancia de esta clase será enviada como parámetro a la clase Snake desde la clase SnakeApp conteniendo la
+lista de Threads. Finalmente, en el método run() de la clase Snake , cuando el entero atómico sea igual al número de serpientes , le indicará a la nueva clase
+imprimir el estado de los Threads.
