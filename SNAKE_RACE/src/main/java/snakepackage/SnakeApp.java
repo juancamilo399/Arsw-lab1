@@ -3,15 +3,16 @@ package snakepackage;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 import enums.GridSize;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JButton;
-import javax.swing.JPanel;
 
 /**
  * @author jd-
@@ -34,11 +35,24 @@ public class SnakeApp {
         new Cell(3 * (GridSize.GRID_WIDTH / 2) / 2,
         GridSize.GRID_HEIGHT - 2)};
     private JFrame frame;
+    private JButton play,pause;
+    JLabel JLabelLongestSnake,JLabelWorstSnake;
     private static Board board;
+    private AtomicInteger longestSnake;
+    private AtomicInteger worstSnake;
+    private AtomicInteger deaths;
+    private EventNotifier notifier;
+
     int nr_selected = 0;
     Thread[] thread = new Thread[MAX_THREADS];
 
+
     public SnakeApp() {
+        notifier = new EventNotifier(thread);
+        worstSnake =  new AtomicInteger();
+        deaths = new AtomicInteger();
+        worstSnake.set(-1);
+        longestSnake = new AtomicInteger();
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         frame = new JFrame("The Snake Race");
         frame.setLayout(new BorderLayout());
@@ -55,9 +69,54 @@ public class SnakeApp {
         
         JPanel actionsBPabel=new JPanel();
         actionsBPabel.setLayout(new FlowLayout());
-        actionsBPabel.add(new JButton("Action "));
+        JLabelLongestSnake = new JLabel ("The snakes with the longests sizes are ");
+        JLabelWorstSnake = new JLabel ("The worst snake is");
+        play = new JButton("Jugar");
+        pause = new JButton("Pausar");
+        pause.setEnabled(true);
+        play.setEnabled(false);
+        actionsBPabel.add(play);
+        actionsBPabel.add(pause);
+        actionsBPabel.add(JLabelWorstSnake);
         frame.add(actionsBPabel,BorderLayout.SOUTH);
+        frame.add(JLabelLongestSnake,BorderLayout.NORTH);
+        prepareButtons();
 
+    }
+
+    private void actualizeData(){
+        String field = new String();
+        field = field + "The snakes with the longests sizes are ";
+        for (int i = 0; i != MAX_THREADS; i++) {
+            if(snakes[i].getBody().size() == longestSnake.get()){
+                field = field + "Snake " + snakes[i].getIdt() + " with size = " + longestSnake.get() + " ";
+            }
+        }
+        JLabelLongestSnake.setText(field);
+        if(worstSnake.get()!=-1) {
+            JLabelWorstSnake.setText("The worst snake is "+worstSnake.get());
+        }
+    }
+    private void prepareButtons(){
+        play.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                for (int i = 0; i != MAX_THREADS; i++) {
+                    snakes[i].play();
+                }
+                pause.setEnabled(true);
+                play.setEnabled(false);
+            }
+        });
+        pause.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                for (int i = 0; i != MAX_THREADS; i++) {
+                    snakes[i].pause();
+                }
+                actualizeData();
+                play.setEnabled(true);
+                pause.setEnabled(false);
+            }
+        });
     }
 
     public static void main(String[] args) {
@@ -71,7 +130,7 @@ public class SnakeApp {
         
         for (int i = 0; i != MAX_THREADS; i++) {
             
-            snakes[i] = new Snake(i + 1, spawn[i], i + 1);
+            snakes[i] = new Snake(i + 1, spawn[i], i + 1 , longestSnake , worstSnake , notifier , deaths);
             snakes[i].addObserver(board);
             thread[i] = new Thread(snakes[i]);
             thread[i].start();
@@ -80,7 +139,7 @@ public class SnakeApp {
         frame.setVisible(true);
 
             
-        while (true) {
+        /*while (true) {
             int x = 0;
             for (int i = 0; i != MAX_THREADS; i++) {
                 if (snakes[i].isSnakeEnd() == true) {
@@ -90,13 +149,8 @@ public class SnakeApp {
             if (x == MAX_THREADS) {
                 break;
             }
-        }
+        }*/
 
-
-        System.out.println("Thread (snake) status:");
-        for (int i = 0; i != MAX_THREADS; i++) {
-            System.out.println("["+i+"] :"+thread[i].getState());
-        }
         
 
     }

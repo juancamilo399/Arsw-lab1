@@ -3,6 +3,7 @@ package snakepackage;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import enums.Direction;
 import enums.GridSize;
@@ -20,16 +21,24 @@ public class Snake extends Observable implements Runnable {
 
     private int direction = Direction.NO_DIRECTION;
     private final int INIT_SIZE = 3;
-
+    private boolean paused;
     private boolean hasTurbo = false;
     private int jumps = 0;
     private boolean isSelected = false;
     private int growing = 0;
     public boolean goal = false;
+    private AtomicInteger longestSnake;
+    private AtomicInteger worstSnake;
+    private AtomicInteger deaths;
+    private EventNotifier notifier;
 
-    public Snake(int idt, Cell head, int direction) {
+    public Snake(int idt, Cell head, int direction, AtomicInteger longestSnake, AtomicInteger worstSnake, EventNotifier notifier, AtomicInteger deaths) {
         this.idt = idt;
         this.direction = direction;
+        this.longestSnake=longestSnake;
+        this.worstSnake=worstSnake;
+        this.deaths = deaths;
+        this.notifier = notifier;
         generateSnake(head);
 
     }
@@ -48,7 +57,15 @@ public class Snake extends Observable implements Runnable {
     @Override
     public void run() {
         while (!snakeEnd) {
-            
+            synchronized (this){
+                while(paused){
+                    try {
+                        wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
             snakeCalc();
 
             //NOTIFY CHANGES TO GUI
@@ -57,16 +74,21 @@ public class Snake extends Observable implements Runnable {
 
             try {
                 if (hasTurbo == true) {
-                    Thread.sleep(500 / 3);
+                    Thread.sleep(100 / 3);
                 } else {
-                    Thread.sleep(500);
+                    Thread.sleep(100);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
         }
-        
+        if(worstSnake.get()==-1){
+            worstSnake.set(snakeBody.size());
+        }
+        if(deaths.incrementAndGet()==8){
+            notifier.printThreadsStatus();
+        }
         fixDirection(head);
         
         
@@ -94,6 +116,9 @@ public class Snake extends Observable implements Runnable {
             Board.gameboard[newCell.getX()][newCell.getY()].freeCell();
         } else if (growing != 0) {
             growing--;
+        }
+        if(snakeBody.size() > longestSnake.get()){
+            longestSnake.set(snakeBody.size());
         }
 
     }
@@ -341,6 +366,15 @@ public class Snake extends Observable implements Runnable {
 
     public int getIdt() {
         return idt;
+    }
+
+    public synchronized void pause(){
+        paused=true;
+    }
+
+    public synchronized  void play(){
+        paused = false;
+        notifyAll();
     }
 
 }
